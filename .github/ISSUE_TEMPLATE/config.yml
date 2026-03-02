@@ -1,0 +1,5 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Writing guide
+    url: https://zenn.dev/zenn/articles/zenn-cli-guide
+    about: Zenn CLI official guide
