@@ -1,8 +1,8 @@
-name: CI
+name: Lint and Math Check
 
+# This workflow runs on pull requests targeting the main branch.
 on:
   pull_request:
-  push:
     branches:
       - main
 
@@ -10,20 +10,15 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Setup Node.js
+      - name: Checkout repository
+        uses: actions/checkout@v3
+      - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 22
-          cache: npm
-
+          node-version: '18'
       - name: Install dependencies
-        run: npm ci
-
-      - name: Markdown lint
-        run: npm run lint:md
-
-      - name: Math delimiter check
-        run: npm run lint:math
+        run: npm install
+      - name: Run markdown lint
+        run: npm run lint
+      - name: Check math delimiters
+        run: node scripts/check-math-delimiters.mjs
