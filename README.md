@@ -26,8 +26,8 @@ npm run dev
 ## 画像/動画ルール
 
 - 本文: `articles/<slug>.md`
-- 画像: `articles/<slug>/images/figure-01.png`
-- 画像は相対パス参照
+- 画像: `images/<series-or-article>/figure-01.png`
+- 本文からは `/images/...` の絶対パスで参照
 - 動画は YouTube 等の外部ホスティングのみ
 
 ## ブランチ保護（GitHub 側で要設定）
