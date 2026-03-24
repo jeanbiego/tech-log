@@ -21,7 +21,7 @@
 - Article markdown must be under `articles/` directly (`articles/<slug>.md`).
 - Draft work must be under `drafts/<yyyymmdd>_<topic>/`.
 - Preview article format: `articles/_draft-<slug>.md` with `published: false`.
-- Images must be placed at `articles/<slug>/images/` and referenced with relative paths.
+- Images for Zenn GitHub sync must be placed under repository-root `images/` and referenced with absolute `/images/...` paths.
 - Do not store video files in the repository (use external hosting links).
 
 ## Slug Rules

@@ -35,5 +35,5 @@ If rules conflict, follow the user instruction first, then `zenn_codex_instructi
 
 ## Completion Checklist
 - Lint passes.
-- Paths and links are valid (especially image relative paths).
+- Paths and links are valid (especially `/images/...` image references).
 - New/updated content follows slug and emoji rules in `CONTRIBUTING.md`.
