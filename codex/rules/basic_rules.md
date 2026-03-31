@@ -25,12 +25,14 @@ If rules conflict, follow the user instruction first, then `zenn_codex_instructi
 ## Editing Constraints
 - Do not mass-reformat unrelated markdown files.
 - Do not rename slugs unless explicitly requested.
+- Do not rename a published article slug; Zenn treats the new slug as a new article.
 - Do not move existing image assets without updating references.
 - Avoid introducing new tooling unless it directly supports this repo workflow.
 
 ## Operational Defaults
 - For article generation, start from `templates/*.md`.
-- For preview drafts, create `articles/_draft-<slug>.md` and set `published: false`.
+- For preview drafts, create `articles/_draft-<final-slug>.md` and set `published: false`.
+- Before setting `published: true`, promote the file to its final slug.
 - Run `npm.cmd run lint` after changes to markdown/config/scripts.
 
 ## Completion Checklist

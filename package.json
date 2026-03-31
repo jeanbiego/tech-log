@@ -9,7 +9,9 @@
     "new:book": "zenn new:book",
     "lint:md": "markdownlint-cli2 \"**/*.md\" \"#node_modules\" \"#notes_private\"",
     "lint:math": "node scripts/check-math-delimiters.mjs",
-    "lint": "npm run lint:md && npm run lint:math"
+    "lint:zenn": "node scripts/validate-zenn-articles.mjs",
+    "lint:zenn:changes": "node scripts/validate-zenn-articles.mjs --against origin/main...HEAD --fail-on-published-rename",
+    "lint": "npm run lint:md && npm run lint:math && npm run lint:zenn"
   },
   "devDependencies": {
     "markdownlint-cli2": "^0.18.1",

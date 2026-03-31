@@ -17,6 +17,7 @@
 - Include purpose, scope, and validation result.
 - Ensure CI passes (`npm run lint`).
 - For content changes, mention affected slug(s) and image path changes.
+- If a PR intentionally changes the slug of a published article, explain the Zenn-side cleanup plan explicitly.
 
 ## Safety
 - Avoid force push on shared branches.

@@ -13,7 +13,8 @@ assignees: []
 
 ## 想定スラッグ（任意）
 
-提案する slug があれば記入してください。空欄の場合は Codex が適切な slug を決定します。
+提案する final slug があれば記入してください。空欄の場合は Codex が適切な slug を決定します。
+公開前に `articles/_draft-<final-slug>.md` から正式 slug に昇格します。
 
 ## 特記事項
 
