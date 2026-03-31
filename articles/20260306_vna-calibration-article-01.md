@@ -3,7 +3,7 @@ title: "📶 VNAは何を測ってる？"
 emoji: "📶"
 type: "tech"
 topics: ["高周波", "rf", "計測", "vna", "校正"]
-published: false
+published: true
 ---
 
 ![vna image](/images/vna-calibration/article-01/vna-and-dut-setup.png)
