@@ -126,18 +126,20 @@ function parsePublishedFromGit(ref, relPath) {
   return frontMatter?.published ?? null;
 }
 
-function extractBaseRef(rangeSpec) {
+function resolveBaseRef(rangeSpec) {
   if (rangeSpec.includes("...")) {
-    return rangeSpec.split("...")[0];
+    const [leftRef, rightRef] = rangeSpec.split("...");
+    const mergeBase = runGit(["merge-base", leftRef, rightRef || "HEAD"]);
+    return mergeBase || null;
   }
   if (rangeSpec.includes("..")) {
-    return rangeSpec.split("..")[0];
+    return rangeSpec.split("..")[0] || null;
   }
   return null;
 }
 
 function validatePublishedSlugRenames(rangeSpec) {
-  const baseRef = extractBaseRef(rangeSpec);
+  const baseRef = resolveBaseRef(rangeSpec);
   if (!baseRef) {
     errors.push(`Could not determine base ref from range: ${rangeSpec}`);
     return;
