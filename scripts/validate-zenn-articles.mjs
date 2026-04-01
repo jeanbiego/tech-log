@@ -33,12 +33,20 @@ const howtoSlugPattern = /^howto-[a-z0-9]+(?:-[a-z0-9]+)+$/;
 const paperSlugPattern = /^paper-[a-z0-9]+-[0-9]{4}-[a-z0-9]+(?:-[a-z0-9]+)*$/;
 const reproSlugPattern = /^repro-[a-z0-9]+(?:-[a-z0-9]+)+$/;
 
+function isOfficialSlug(slug) {
+  return officialSlugPattern.test(slug);
+}
+
 function isFinalSlug(slug) {
   return (
     howtoSlugPattern.test(slug) ||
     paperSlugPattern.test(slug) ||
     reproSlugPattern.test(slug)
   );
+}
+
+function isValidFinalSlug(slug) {
+  return isOfficialSlug(slug) && isFinalSlug(slug);
 }
 
 function parseFrontMatter(text, label) {
@@ -72,20 +80,14 @@ function validateArticleFile(entry) {
     errors.push(`${relPath} - UTF-8 BOM is not allowed; Zenn may fail to detect front matter.`);
   }
 
-  if (!officialSlugPattern.test(slug)) {
-    errors.push(
-      `${relPath} - Filename slug must use 12-50 chars from [a-z0-9_-].`
-    );
-  }
-
   const frontMatter = parseFrontMatter(text, relPath);
   if (!frontMatter) return;
 
   if (slug.startsWith("_draft-")) {
     const proposedSlug = slug.slice("_draft-".length);
-    if (!isFinalSlug(proposedSlug)) {
+    if (!isValidFinalSlug(proposedSlug)) {
       errors.push(
-        `${relPath} - Preview articles must use _draft-<final-slug> where final slug matches howto-*, paper-*, or repro-*.`
+        `${relPath} - Preview articles must use _draft-<final-slug> where final slug is 12-50 chars and matches howto-*, paper-*, or repro-*.` 
       );
     }
     if (frontMatter.published) {
@@ -94,9 +96,9 @@ function validateArticleFile(entry) {
     return;
   }
 
-  if (!isFinalSlug(slug)) {
+  if (!isValidFinalSlug(slug)) {
     errors.push(
-      `${relPath} - Published article filenames must use a final slug: howto-*, paper-*, or repro-*.`
+      `${relPath} - Published article filenames must use a 12-50 char final slug: howto-*, paper-*, or repro-*.` 
     );
   }
 }
@@ -156,19 +158,34 @@ function validatePublishedSlugRenames(rangeSpec) {
   for (const line of lines) {
     const parts = line.split("\t");
     const status = parts[0] ?? "";
-    if (!status.startsWith("R")) continue;
+    let oldPath = null;
+    let newPath = null;
 
-    const oldPath = parts[1];
-    const newPath = parts[2];
+    if (status.startsWith("R")) {
+      oldPath = parts[1];
+      newPath = parts[2];
+    } else if (status === "D") {
+      oldPath = parts[1];
+    } else {
+      continue;
+    }
+
     if (!oldPath?.endsWith(".md")) continue;
     if (path.posix.basename(oldPath) === ".keep") continue;
 
     const oldPublished = parsePublishedFromGit(baseRef, oldPath);
-    if (oldPublished) {
+    if (!oldPublished) continue;
+
+    if (status.startsWith("R")) {
       errors.push(
         `${oldPath} -> ${newPath} - Renaming a published article changes its Zenn slug and creates a second article. Keep the published slug stable after first publish.`
       );
+      continue;
     }
+
+    errors.push(
+      `${oldPath} - Removing a published article file from the repository breaks slug continuity on Zenn. If you intended a slug change, keep the old published file path stable and handle Zenn-side cleanup separately.`
+    );
   }
 }
 
