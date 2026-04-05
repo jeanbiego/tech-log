@@ -159,3 +159,5 @@ DUT
 私もまだ勉強途中ですので、ツッコミは大歓迎です。
 
 次の記事では「校正の基準面」について解説します。
+続きはこちらです。
+[📶 VNAは"どこ"を測ってるの](https://zenn.dev/jeanbiego/articles/howto-vna-reference-plane)

@@ -3,7 +3,7 @@ title: "📶 VNAは\"どこ\"を測ってるの"
 emoji: "📶"
 type: "tech"
 topics: ["高周波", "rf", "計測", "vna", "校正"]
-published: false
+published: true
 ---
 
 ## TL;DR
@@ -15,6 +15,7 @@ published: false
 ## 0. 前回の記事からのつながり
 
 前回の記事では、VNAと校正について説明しました。
+まだの方は、先に [📶 VNAは何を測ってる？](https://zenn.dev/jeanbiego/articles/howto-vna-calibration-basics) を読むとつながりやすいです。
 
 - VNAは、回路に電気信号を入れたときの入出力を測定する装置
 - 実際の測定には、ケーブルやコネクタなどによる無数の誤差が含まれる
